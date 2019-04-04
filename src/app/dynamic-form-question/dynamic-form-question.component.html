@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+        <div [formGroup]="form" class="form-group">
+            <label [attr.for]="question.key">{{ question.label }}</label>
+          
+            <div [ngSwitch]="question.controlType">
+              <input
+                *ngSwitchCase="'textbox'"
+                [formControlName]="question.key"
+                [id]="question.key"
+                [type]="question.type"
+                class="form-control"
+              />
+          
+              <input
+                *ngSwitchCase="'number'"
+                [formControlName]="question.key"
+                [id]="question.key"
+                type="number"
+                class="form-control"
+              />
+          
+              <input
+                *ngSwitchCase="'checkbox'"
+                [formControlName]="question.key"
+                [id]="question.key"
+                [type]="question.type"
+                [checked]="question.checked"
+                class="form-control"
+                (change)="$event.target.checked ? form.controls[question.key].setValue(key) : form.controls[question.key].setValue()"
+              />
+            </div>
+          
+            <div class="errorMessage" *ngIf="!isValid">
+              {{ question.validationMessage }}
+            </div>
+          </div>
+    </div>
+  </div>
+</div>
+
+
